@@ -46,7 +46,7 @@
 	<Properties>
 	
         <!--로그 저장소(log repository) -->
-		<Property name="LOG_PATH" value="C:/jdk/spring/log4j2/myPetProject/test" />
+		<Property name="LOG_PATH" value="C:/jdk/spring/log4j2/myPetProject" />
 		
 		<Property name="layoutPattern">
 			%style{%d{yyyy-MM-dd HH:mm:ss.SSS}}{cyan} %highlight{[%-5p]}{FATAL=bg_red, ERROR=red, INFO=green, DEBUG=blue} [%C] %style{[%t]}{yellow} -- %m%n
