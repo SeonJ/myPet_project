@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.myPet.mapper.Dog-mapper">
+	
+	<!-- 강아지 정보 생성 -->
+	<insert id="insertDog" parameterType="String">
+		INSERT INTO dog VALUES (
+			dog_sep.nextval, #{name}, #{photo}, #{email}, #{weight}, #{speices}
+		)
+	</insert>
+	
+	<!-- 강아지 프로필 리스트 -->
+	<select id="getDogList" parameterType="String" resultType="DogDTO" >
+		SELECT * FROM dog WHERE email=#{memEmail}
+	</select>
+
+	<!-- 강아지 프로필 가져오기 -->
+	<select id="getDogInfo" parameterType="int" resultType="DogDTO">
+		SELECT * FROM dog WHERE dogNum=#{dogNum}
+	</select>
+	
+	<!-- 강아지 프로필 수정 -->
+	<update id="updateDogInfo" parameterType="DogDTO">
+		UPDATE dog SET 
+		name=#{name}, photo=#{photo}, weight=#{weight}, speices=#{speices}
+		WHERE dogNum=#{dogNum}
+	</update>
+	
+	<!-- 반려견 프로필 삭제 -->
+	<delete id="deleteDogInfo" parameterType="int">
+		DELETE FROM dog WHERE dogNum=#{dogNum}
+	</delete>
+	
+	<!-- 회원 강아지 프로필리스트에 강아지 갯수 -->
+	<select id="getDogCount" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM dog WHERE email=#{memEmail}
+	</select>
+	
+	<!-- 주인 회원 탈퇴시 등록되어있는 강이지(목록) 삭제 -->
+	<delete id="memDeleteDogInfo" parameterType="String">
+		DELETE FROM dog WHERE email=#{memEmail}
+	</delete>
+	
+</mapper>
