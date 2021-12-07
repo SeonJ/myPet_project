@@ -28,9 +28,6 @@ if(session.getAttribute("memId") == null) { %>
 <body>
 <br /><br />
 	<div align="center">
-<%-- 		<jsp:include page="../header.jsp" /><br />
-		<jsp:include page="../infoHeader.jsp" /><br />
-		<jsp:include page="memMenu.jsp" /> --%>
 	</div><br />
 <h1 align="center">반려견 정보 삭제</h1>
 	<form action="dogDeletePro.jsp?dogNum=<%=dogNum%>" method="post" name="inputForm" onsubmit="return check()" >

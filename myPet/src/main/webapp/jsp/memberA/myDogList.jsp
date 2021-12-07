@@ -5,54 +5,73 @@
 <meta charset="UTF-8"><title>개와함개::반려견 목록</title>
 <link href="../styledog.css" rel="stylesheet" type="text/css" >
 </head>
-<%-- <%
-	request.setCharacterEncoding("UTF-8");
-//로그인 상태 검사
-	if(session.getAttribute("memId") == null) { %> --%>
-		<script>alert("로그인 후 이용 가능합니다."); window.location="../totalMain.jsp"; </script>
-<%-- <%
-	} else {
-	// 게시판에 있는 임의의 글 번호
-	int number = 0;
-	String memEmail = (String)session.getAttribute("memId");
-	DogDAO dao = DogDAO.getInstance();
-	int count = dao.getDogCount(memEmail);
-	List getDogList = null;
-	if(count>0){ getDogList = dao.getDogList(memEmail);	}
-	
-%> --%>
+
 <body>
 <br /><br />
 <div align="center">
-<%-- 	<jsp:include page="../header.jsp" /><br />
-	<jsp:include page="../infoHeader.jsp" /><br />
-	<jsp:include page="memMenu.jsp" /> --%>
-</div><br />
 <h1 align="center">반려견 목록</h1>
 	<table class="mini">
 		<tr>
-			<td colspan="3" style="border-top: 1px solid white;"><button onclick="window.location='dogWriteForm.jsp'"> 강아지 등록하기 </button></td> 
+			<td colspan="3" style="border-top: 1px solid white;"><button onclick="insertMyDog();"> 강아지 등록하기 </button></td> 
 		</tr>
 		<tr class="header">
 			<td class="num">번호</td>
 			<td>이름</td>
 			<td>견종</td>
 		</tr>
-<%-- 	<% if(count <= 0) { %>
 		<tr>
 			<td colspan="3"> 반려견이 없습니다. 등록해주세요. </td>
 		</tr>
-	<%}else{ // 데이터가 있으면	
-			for(int i = 0; i < getDogList.size(); i++){ 
-				DogDTO dog = (DogDTO)getDogList.get(i); %>
 				<tr>
-					<td><%= i+1 %></td>
-					<td><a href="dogInfo.jsp?dogNum=<%= dog.getDogNum() %>"><font style="text-decoration:underline;"><%=dog.getName() %></font></a></td>
-					<td><%= dog.getSpeices() %></td>
-				</tr> --%>
-		<%-- <%} // for문 
-	}// if문 - 게시글 유무 %> --%>
+					<td></td>
+					<td><a href="dogInfo.jsp?"><font style="text-decoration:underline;"></font></a></td>
+					<td></td>
+				</tr> 
 	</table>
 </body>
-<%-- <%} %> --%>
+
+
+<script>
+$(function(){ 
+	
+	
+});
+
+
+
+
+
+function insertMyDog(){
+	
+	$.ajax({
+		type: "GET", //요청 메소드 방식
+		url:"/memberA/insertMyDog",
+		dataType:json, //서버가 요청 URL을 통해서 응답하는 내용의 타입
+		data: {memEmail : 'eunji'},
+		success : function(result){
+			
+			
+			//서버의 응답데이터가 클라이언트에게 도착하면 자동으로 실행되는함수(콜백)
+			//result - 응답데이터
+			//$('#result').text(result);
+			alert(result);
+		},
+		error : function(a, b, c){
+			//통신 실패시 발생하는 함수(콜백)
+			alert(a + b + c);
+		}
+	});
+	
+}
+
+
+
+
+
+
+
+
+
+</script>
 </html>
+
