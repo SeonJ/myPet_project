@@ -23,7 +23,7 @@ public class DogDAO {
 	private static final Logger log 
 		= LoggerFactory.getLogger(DogDAO.class);
 	
-	private static final String MAPPER_NS = "com.project.myPet.mapper.DogDAO";
+	private static final String MAPPER_NS = "com.project.myPet.mapper.Dog-mapper";
 	
 	@Autowired
 	SqlSession sqlSession;
@@ -45,10 +45,10 @@ public class DogDAO {
 	 * @param email 주인 이메일
 	 * @return 강아지 정보
 	 */
-	public DogDTO getDogList(String email) {
+	public DogDTO getDogList(String memEmail) {
 		
 		log.info("DogDAO.getDogList");
-		return sqlSession.selectOne(MAPPER_NS + ".getDogList", email);
+		return sqlSession.selectOne(MAPPER_NS + ".getDogList", memEmail);
 	}
 	
 	/**

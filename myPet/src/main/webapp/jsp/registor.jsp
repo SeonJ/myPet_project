@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,7 +18,7 @@
 <!--         rel="stylesheet"> -->
 
     <!-- Custom styles for this template-->
-	<link href="/css/sb-admin-2.css" rel="stylesheet">
+	<link href="resources/css/sb-admin-2.css" rel="stylesheet">
 </head>
 
 <body class="bg-gradient-primary">
@@ -36,8 +35,8 @@
                             <div class="text-center">
                                 <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
                             </div>
-                            <form class="user">
-                                <div class="form-group row">
+                            <form class="user" method="post" action="${pageContext.request.contextPath}/registor_action">
+                               <!--  <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
                                         <input type="text" class="form-control form-control-user" id="exampleFirstName"
                                             placeholder="First Name">
@@ -46,22 +45,56 @@
                                         <input type="text" class="form-control form-control-user" id="exampleLastName"
                                             placeholder="Last Name">
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="form-group">
-                                    <input type="email" class="form-control form-control-user" id="exampleInputEmail"
-                                        placeholder="Email Address">
+                                    <input type="email" class="form-control form-control-user" id="memEmail"
+                                        placeholder="Email">
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
                                         <input type="password" class="form-control form-control-user"
-                                            id="exampleInputPassword" placeholder="Password">
+                                            id="pw" placeholder="Password">
                                     </div>
-                                    <div class="col-sm-6">
+                                    <!-- <div class="col-sm-6">
                                         <input type="password" class="form-control form-control-user"
-                                            id="exampleRepeatPassword" placeholder="Repeat Password">
-                                    </div>
+                                            id="repeatPw" placeholder="Repeat Password">
+                                    </div> -->
                                 </div>
-                                <a href="login.html" class="btn btn-primary btn-user btn-block">
+                                <div class="form-group row">
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <input type="text" class="form-control form-control-user"
+                                            id="photo" placeholder="photo">
+                                    </div>
+                                    <!-- <div class="col-sm-6">
+                                        <input type="text" class="form-control form-control-user"
+                                            id="insertPhoto" placeholder="upload a photo">
+                                	</div> -->
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control form-control-user" id="name"
+                                        placeholder="name">
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control form-control-user" id="gender"
+                                        placeholder="gender">
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control form-control-user" id="phone"
+                                        placeholder="phone">
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control form-control-user" id="address"
+                                        placeholder="address">
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control form-control-user" id="restTime"
+                                        placeholder="restTime" value="0">
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control form-control-user" id="state"
+                                        placeholder="state" value="approve">
+                                </div>
+                                <a href="${pageContext.request.contextPath}/registor_action" class="btn btn-primary btn-user btn-block">
                                     Register Account
                                 </a>
                                 <hr>
@@ -77,7 +110,7 @@
                                 <a class="small" href="forgot-password.html">Forgot Password?</a>
                             </div>
                             <div class="text-center">
-                                <a class="small" href="login.html">Already have an account? Login!</a>
+                                <a class="small" href="${pageContext.request.contextPath}/login">Already have an account? Login!</a>
                             </div>
                         </div>
                     </div>

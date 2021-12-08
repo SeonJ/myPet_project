@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.myPet.mapper.Dog-mapper">
+	
+	<!-- 회원 정보 생성 -->
+	<insert id="insertMem" parameterType="MemberDTO">
+		INSERT INTO member VALUES (
+			#{memEmail}, #{pw}, #{photo}, #{name}, #{gender}, #{phone}, #{address}, #{0}, #{approve}
+		)
+	</insert>
+	
+	<!-- 회원 활동상태 확인 -->
+	<select id="memStateCheck" parameterType="String" resultType="String">
+		SELECT state FROM member WHERE memEmail=#{memEmail}
+	</select>
+	
+	<!-- 로그인 인증 -->
+	<select id="memLoginCheck" parameterType="MemberDTO" resultType="int" >
+		SELECT count(*) FROM member  
+		WHERE memEmail=#{memEmail} AND pw=#{pw}
+	</select>
+	
+	<!-- 회원 존재 여부 -->
+	<select id="isMember" parameterType="String" resultType="int" >
+		SELECT count(*) FROM member WHERE memEmail=#{memEmail}
+	</select>
+	
+	<!-- 개별 회원 정보 조회(보기)  -->
+	<select id="getMember" parameterType="String" resultType="MemberDTO" >
+		SELECT * FROM member WHERE memEmail=#{memEmail}
+	</select>
+	
+	<!-- 회원 정보 수정 -->
+	<update id="updateMemInfo" parameterType="MemberDTO">
+		UPDATE member SET 
+		pw=#{pw}, address=#{address}, phone=#{phone}, photo=#{photo}, name=#{name}, gender=#{gender}
+		WHERE memEmail=#{memEmail}
+	</update>
+	
+	<!-- 회원 정보 삭제 -->
+	<delete id="deleteMem" parameterType="String">
+		DELETE FROM member WHERE memEmail=#{memEmail}
+	</delete>
+	
+	<!-- 관리자 : 전체 회원 리스트(페이징) -->
+	<select id="getMemList" parameterType="pageDTO" resultType="MemberDTO">
+		SELECT *  
+		FROM (SELECT ROWNUM,  
+		             m.*,  
+		             FLOOR((ROWNUM - 1) / ${limit} + 1) page  
+		      FROM (
+		             SELECT * FROM member  
+		             ORDER BY memEmail ASC
+		           ) m  
+		      )  
+		WHERE page = ${page}
+	</select>
+	
+	<!-- 마지막 페이지 구하기(조회) (페이징) : 전체 회원 조회 -->
+	<select id="getLastPage" parameterType="int" resultType="int" >
+		SELECT CEIL(COUNT(*)/#{limit}) FROM member
+	</select>
+	
+	<!-- 마지막 페이지 구하기(페이징) : 검색 -->
+	<select id="getSearchLastPage" parameterType="SearchVo" resultType="int">
+		SELECT CEIL(COUNT(*)/${limit}) FROM member   
+		WHERE ${searchKind} like '%${searchWord}%'
+	</select>
+	
+	<!-- 검색 : 아이디/이메일 (동등 검색) -->
+	<select id="getMemberByEmail" parameterType="hashmap" resultType="MemberDTO">
+		SELECT * FROM member   
+		WHERE ${searchKind} = #{searchWord}
+		ORDER BY memEmail ASC
+	</select>
+	
+	<!-- 검색 : 이름/연락처 (유사검색) -->
+	<select id="getMembersByNameOrPhone" parameterType="SearchVO" resultType="MemberDTO" >
+	SELECT * 
+	FROM (SELECT ROWNUM,  
+	             m.*,  
+	             FLOOR((ROWNUM - 1) / ${limit} + 1) page  
+	      FROM (
+	             SELECT * FROM member    
+				 WHERE ${searchKind} like '%${searchWord}%' 
+				 ORDER BY memEmail ASC
+	           ) m  
+	      )  
+	WHERE page = ${page}
+	</select>
+	
+	<!-- 관리자 : 회원 활동 중지 -->
+	<update id="updateMemState" parameterType="MemberDTO">
+		UPDATE member SET state=#{state} WHERE memEmail=#{memEmail}
+	</update>
+	
+	<!-- 관리자 : 구매요청 승인하면 멤버테이블 restTime에 시간 플러스 -->
+	<update id="plusRestTime" parameterType="MemberDTO">
+		UPDATE member SET restTime=#{restTime} WHERE memEmail=#{memEmail}
+	</update>
+	
+</mapper>

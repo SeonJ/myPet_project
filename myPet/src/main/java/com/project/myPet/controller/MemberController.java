@@ -6,11 +6,14 @@ import java.util.Locale;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import com.project.myPet.service.DogService;
 
 /**
  * Handles requests for the application home page.
@@ -19,12 +22,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping(value="memberA")
 public class MemberController {
 	
-	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
+	private static final Logger log = LoggerFactory.getLogger(MemberController.class);
+	
+	@Autowired
+	DogService dogService;
 	
 	
 	@RequestMapping(value = "dogInfo", method = RequestMethod.GET)
 	public String dogInfo(Locale locale, Model model) {
-		logger.info("dogInfo.", locale);
+		log.info("dogInfo.", locale);
 		
 		
 		
@@ -35,7 +41,7 @@ public class MemberController {
 	
 	@RequestMapping(value = "memInfo", method = RequestMethod.GET)
 	public String memInfo(Locale locale, Model model) {
-		logger.info("memInfo.", locale);
+		log.info("memInfo.", locale);
 		
 		
 		return "/memberA/memInfo";
@@ -43,7 +49,7 @@ public class MemberController {
 	
 	@RequestMapping(value = "myDogList", method = RequestMethod.GET)
 	public String myDogList(Locale locale, Model model) {
-		logger.info("myDogList", locale);
+		log.info("myDogList", locale);
 		
 		
 		
@@ -55,8 +61,10 @@ public class MemberController {
 	
 	@RequestMapping(value = "insertMyDog", method = RequestMethod.GET)
 	public String insertMyDog(Locale locale, Model model, @RequestParam("email") String email) {
-		logger.info("insertMyDog", locale);
 		
+		log.info("insertMyDog", locale);
+		
+		log.info("강아지 정보 등록 폼");
 		
 		
 		

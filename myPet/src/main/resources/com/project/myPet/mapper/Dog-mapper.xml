@@ -3,7 +3,7 @@
 <mapper namespace="com.project.myPet.mapper.Dog-mapper">
 	
 	<!-- 강아지 정보 생성 -->
-	<insert id="insertDog" parameterType="String">
+	<insert id="insertDog" parameterType="DogDTO">
 		INSERT INTO dog VALUES (
 			dog_sep.nextval, #{name}, #{photo}, #{email}, #{weight}, #{speices}
 		)
