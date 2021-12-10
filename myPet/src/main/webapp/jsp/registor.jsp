@@ -35,7 +35,7 @@
                             <div class="text-center">
                                 <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
                             </div>
-                            <form class="user" method="post" action="${pageContext.request.contextPath}/registor_action">
+                            <form class="user" method="post" name="Form" action="${pageContext.request.contextPath}/registor_action">
                                <!--  <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
                                         <input type="text" class="form-control form-control-user" id="exampleFirstName"
@@ -47,13 +47,13 @@
                                     </div>
                                 </div> -->
                                 <div class="form-group">
-                                    <input type="email" class="form-control form-control-user" id="memEmail"
+                                    <input type="email" class="form-control form-control-user" id="memEmail" name="memEmail"
                                         placeholder="Email">
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input type="password" class="form-control form-control-user"
-                                            id="pw" placeholder="Password">
+                                        <input type="password" class="form-control form-control-user" id="pw" name="pw" 
+                                        placeholder="Password">
                                     </div>
                                     <!-- <div class="col-sm-6">
                                         <input type="password" class="form-control form-control-user"
@@ -62,8 +62,8 @@
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input type="text" class="form-control form-control-user"
-                                            id="photo" placeholder="photo">
+                                        <input type="text" class="form-control form-control-user" id="photo" name="photo"
+                                        placeholder="photo">
                                     </div>
                                     <!-- <div class="col-sm-6">
                                         <input type="text" class="form-control form-control-user"
@@ -71,32 +71,34 @@
                                 	</div> -->
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" class="form-control form-control-user" id="name"
+                                    <input type="text" class="form-control form-control-user" id="name" name="name"
                                         placeholder="name">
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" class="form-control form-control-user" id="gender"
+                                    <input type="text" class="form-control form-control-user" id="gender" name="gender"
                                         placeholder="gender">
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" class="form-control form-control-user" id="phone"
+                                    <input type="text" class="form-control form-control-user" id="phone" name="phone" 
                                         placeholder="phone">
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" class="form-control form-control-user" id="address"
+                                    <input type="text" class="form-control form-control-user" id="address" name="address" 
                                         placeholder="address">
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" class="form-control form-control-user" id="restTime"
+                                    <input type="text" class="form-control form-control-user" id="restTime" name="restTime"
                                         placeholder="restTime" value="0">
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" class="form-control form-control-user" id="state"
+                                    <input type="text" class="form-control form-control-user" id="state" name="state"
                                         placeholder="state" value="approve">
                                 </div>
-                                <a href="${pageContext.request.contextPath}/registor_action" class="btn btn-primary btn-user btn-block">
+                                <%-- <a href="${pageContext.request.contextPath}/registor_action" class="btn btn-primary btn-user btn-block">
                                     Register Account
-                                </a>
+                                </a> --%>
+                                <input type="submit" class="btn btn-primary btn-user btn-block" value="Register Account" />
+                                <!-- onclick="insertMem();" -->
                                 <hr>
                                 <a href="index.html" class="btn btn-google btn-user btn-block">
                                     <i class="fab fa-google fa-fw"></i> Register with Google
@@ -127,4 +129,36 @@
 
 </body>
 
+<!-- <script>
+$(function(){ 
+	
+	
+});
+
+
+function insertMem(){
+	
+	$.ajax({
+		type: "POST", //요청 메소드 방식
+		url:"/registor_action",
+		dataType:json, //서버가 요청 URL을 통해서 응답하는 내용의 타입
+		data: $("Form").serialize(),
+		success : function(result){
+			
+			
+			//서버의 응답데이터가 클라이언트에게 도착하면 자동으로 실행되는함수(콜백)
+			//result - 응답데이터
+			//$('#result').text(result);
+			alert(result);
+		},
+		error : function(a, b, c){
+			//통신 실패시 발생하는 함수(콜백)
+			alert(a + b + c);
+		}
+	});
+	
+}
+
+
+</script> -->
 </html>

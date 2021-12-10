@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.project.myPet.mapper.Dog-mapper">
+<mapper namespace="com.project.myPet.mapper.Member-mapper">
 	
 	<!-- 회원 정보 생성 -->
 	<insert id="insertMem" parameterType="MemberDTO">
 		INSERT INTO member VALUES (
-			#{memEmail}, #{pw}, #{photo}, #{name}, #{gender}, #{phone}, #{address}, #{0}, #{approve}
+			#{memEmail}, #{pw}, #{photo}, #{name}, #{gender}, #{phone}, #{address}, #{restTime}, #{state}
 		)
 	</insert>
 	

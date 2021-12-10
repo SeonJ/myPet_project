@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,11 +19,17 @@
         rel="stylesheet">
 
 <!--     Custom styles for this template -->
-    <link href="/css/sb-admin-2.css" rel="stylesheet">
+    <link href="resources/css/sb-admin-2.css" rel="stylesheet">
 
 </head>
 
 <body class="bg-gradient-primary">
+
+<c:if test="${not empty msg}">
+	<script>
+		alert("${msg}");
+	</script>
+</c:if>
 
     <div class="container">
 
@@ -41,15 +48,15 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                                     </div>
-                                    <form class="user">
+                                    <form class="user" action="${pageContext.request.contextPath}/login_action">
                                         <div class="form-group">
                                             <input type="email" class="form-control form-control-user"
-                                                id="exampleInputEmail" aria-describedby="emailHelp"
+                                                id="memEmail" name="memEmail" aria-describedby="emailHelp"
                                                 placeholder="Enter Email Address...">
                                         </div>
                                         <div class="form-group">
                                             <input type="password" class="form-control form-control-user"
-                                                id="exampleInputPassword" placeholder="Password">
+                                                id="pw" name="pw" placeholder="Password">
                                         </div>
                                         <div class="form-group">
                                             <div class="custom-control custom-checkbox small">
@@ -58,9 +65,7 @@
                                                     Me</label>
                                             </div>
                                         </div>
-                                        <a href="index.html" class="btn btn-primary btn-user btn-block">
-                                            Login
-                                        </a>
+                                        <input type="submit" class="btn btn-primary btn-user btn-block" value ="Login" />
                                         <hr>
                                         <a href="index.html" class="btn btn-google btn-user btn-block">
                                             <i class="fab fa-google fa-fw"></i> Login with Google
@@ -74,7 +79,7 @@
                                         <a class="small" href="forgot-password.html">Forgot Password?</a>
                                     </div>
                                     <div class="text-center">
-                                        <a class="small" href="register.html">Create an Account!</a>
+                                        <a class="small" href="${pageContext.request.contextPath}/registor">Create an Account!</a>
                                     </div>
                                 </div>
                             </div>
