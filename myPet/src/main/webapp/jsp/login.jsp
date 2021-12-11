@@ -113,7 +113,7 @@ function login_action(){
 			
 			console.log("result :",result);
 			
-			if(result == "success"){
+			if(result.result == "success"){
 				location.href="/myPet/";
 			}else{
 				alert("로그인에 실패하셨습니다.");

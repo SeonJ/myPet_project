@@ -147,7 +147,17 @@ function insertMem(){
 		success : function(result){
 			
 // 			console.log(result);
-			alert(result.msg);
+// 			alert(result.msg);
+			
+			
+			console.log("result :",result);
+			
+			if(result.result == "success"){
+				alert(result.msg);
+				location.href="/myPet/";
+			}else{
+				alert(result.msg);
+			}
 			
 		},
 		error : function(a, b, c){

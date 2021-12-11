@@ -141,8 +141,10 @@ public class HomeController {
 				: "회원 정보 저장에 실패하였습니다";
 		
 		if(flag == true){
+			resultData.put("result","success");
 			resultData.put("msg",msg);
 		}else {
+			resultData.put("result","fail");
 			resultData.put("msg",msg);
 		}
 		
