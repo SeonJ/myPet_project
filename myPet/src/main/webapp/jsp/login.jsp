@@ -48,7 +48,7 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                                     </div>
-                                    <form class="user" action="${pageContext.request.contextPath}/login_action">
+                                    <div class="user">
                                         <div class="form-group">
                                             <input type="email" class="form-control form-control-user"
                                                 id="memEmail" name="memEmail" aria-describedby="emailHelp"
@@ -65,7 +65,8 @@
                                                     Me</label>
                                             </div>
                                         </div>
-                                        <input type="submit" class="btn btn-primary btn-user btn-block" value ="Login" />
+<!--                                         <input type="submit" class="btn btn-primary btn-user btn-block" value ="Login" /> -->
+												<button onClick="login_action();"></button>
                                         <hr>
                                         <a href="index.html" class="btn btn-google btn-user btn-block">
                                             <i class="fab fa-google fa-fw"></i> Login with Google
@@ -73,7 +74,7 @@
                                         <a href="index.html" class="btn btn-facebook btn-user btn-block">
                                             <i class="fab fa-facebook-f fa-fw"></i> Login with Facebook
                                         </a>
-                                    </form>
+                                    </div>
                                     <hr>
                                     <div class="text-center">
                                         <a class="small" href="forgot-password.html">Forgot Password?</a>
@@ -98,5 +99,35 @@
     <script src="/js/bootstrap.bundle.min.js"></script>
 	
 </body>
+<script>
 
+function login_action(){
+	
+	
+	$.ajax({
+		type: "POST", 
+		url:"/myPet/login_action",
+		dataType:"json", //서버가 요청 URL을 통해서 응답하는 내용의 타입
+		data: {memEmail : $('#memEmail').val(), pw : $('#pw').val()},
+		success : function(result){
+			
+			console.log("result :",result);
+			
+		},
+		error : function(a, b, c){
+			console.log("a :",a,"b :",b,"c :",c)
+		}
+	});
+	
+	
+	
+	
+	
+	
+	
+}
+
+
+</script>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
 </html>
