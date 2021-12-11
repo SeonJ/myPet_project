@@ -134,15 +134,23 @@ public class HomeController {
 		log.info("registorAction");
 		log.info("회원 정보 : " + member);
 		
+		JSONObject resultData = new JSONObject();
 		boolean flag = memberService.insertMem(member);
 		String msg = flag == true ? "회원 정보 저장에 성공하였습니다" 
 				: "회원 정보 저장에 실패하였습니다";
 		
+		if(flag == true){
+			resultData.put("msg",msg);
+		}else {
+			resultData.put("msg",msg);
+		}
+		
+		
 		log.info("msg : " + msg);
 		
-		ra.addFlashAttribute("msg", msg);
+//		ra.addFlashAttribute("msg", msg);
 		
-		return "redirect:/login";
+		return resultData.toJSONString();
 	}
 	
 	

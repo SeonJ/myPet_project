@@ -35,7 +35,7 @@
                             <div class="text-center">
                                 <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
                             </div>
-                            <form class="user" method="post" name="Form" action="${pageContext.request.contextPath}/registor_action">
+                            <form id="user" method="post" name="Form" action="${pageContext.request.contextPath}/registor_action">
                                <!--  <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
                                         <input type="text" class="form-control form-control-user" id="exampleFirstName"
@@ -127,9 +127,9 @@
     <script src="/js/bootstrap.bundle.min.js"></script>
 
 
-</body>
 
-<!-- <script>
+
+ <script>
 $(function(){ 
 	
 	
@@ -141,15 +141,13 @@ function insertMem(){
 	$.ajax({
 		type: "POST", //요청 메소드 방식
 		url:"/registor_action",
-		dataType:json, //서버가 요청 URL을 통해서 응답하는 내용의 타입
-		data: $("Form").serialize(),
+		dataType:"json", //서버가 요청 URL을 통해서 응답하는 내용의 타입
+		data: $("#user").serialize(),
 		success : function(result){
 			
+// 			console.log(result);
+			alert(result.msg);
 			
-			//서버의 응답데이터가 클라이언트에게 도착하면 자동으로 실행되는함수(콜백)
-			//result - 응답데이터
-			//$('#result').text(result);
-			alert(result);
 		},
 		error : function(a, b, c){
 			//통신 실패시 발생하는 함수(콜백)
@@ -160,5 +158,6 @@ function insertMem(){
 }
 
 
-</script> -->
+</script>
+</body>
 </html>
