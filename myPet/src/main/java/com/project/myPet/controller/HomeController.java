@@ -111,6 +111,7 @@ public class HomeController {
 			
 		} else {  // 비회원
 //			forwardPage = "redirect:/registor";
+			result.put("result","fail");
 		}
 		
 		return result.toJSONString();

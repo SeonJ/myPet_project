@@ -113,9 +113,18 @@ function login_action(){
 			
 			console.log("result :",result);
 			
+			if(result == "success"){
+				location.href="/myPet/";
+			}else{
+				alert("로그인에 실패하셨습니다.");
+			}
+			
+			
+			
+			
+			
 		},
 		error : function(a, b, c){
-			console.log("a :",a,"b :",b,"c :",c)
 		}
 	});
 	
