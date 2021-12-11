@@ -35,7 +35,7 @@
                             <div class="text-center">
                                 <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
                             </div>
-                            <form id="user" method="post" name="Form" action="${pageContext.request.contextPath}/registor_action">
+                            <form id="user" method="post" name="Form">
                                <!--  <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
                                         <input type="text" class="form-control form-control-user" id="exampleFirstName"
@@ -97,7 +97,8 @@
                                 <%-- <a href="${pageContext.request.contextPath}/registor_action" class="btn btn-primary btn-user btn-block">
                                     Register Account
                                 </a> --%>
-                                <input type="submit" class="btn btn-primary btn-user btn-block" value="Register Account" />
+<!--                                 <input type="button" class="btn btn-primary btn-user btn-block" value="Register Account" /> -->
+                                <button type="button" onClick ="insertMem();" class="btn btn-primary btn-user btn-block">Register Account</button>
                                 <!-- onclick="insertMem();" -->
                                 <hr>
                                 <a href="index.html" class="btn btn-google btn-user btn-block">
@@ -125,7 +126,7 @@
 <!--     Bootstrap core JavaScript -->
     <script src="/js/jquery/jquery.min.js"></script>
     <script src="/js/bootstrap.bundle.min.js"></script>
-
+<script src="http://code.jquery.com/jquery-latest.js"></script>
 
 
 
@@ -140,7 +141,7 @@ function insertMem(){
 	
 	$.ajax({
 		type: "POST", //요청 메소드 방식
-		url:"/registor_action",
+		url:"/myPet/registor_action",
 		dataType:"json", //서버가 요청 URL을 통해서 응답하는 내용의 타입
 		data: $("#user").serialize(),
 		success : function(result){

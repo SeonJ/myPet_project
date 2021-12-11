@@ -125,7 +125,8 @@ public class HomeController {
 		return "registor";
 	}
 	
-	@RequestMapping(value = "/registor_action", method = RequestMethod.POST)
+	@ResponseBody
+	@RequestMapping(value = "/registor_action", method = RequestMethod.POST,produces = "application/text; charset=utf8")
 	public String registorAction(
 								 MemberDTO member,
 								 Model model, 
