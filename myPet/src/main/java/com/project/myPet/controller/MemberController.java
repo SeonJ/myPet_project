@@ -7,6 +7,7 @@ import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.project.myPet.domain.MemberDTO;
 import com.project.myPet.service.DogService;
 import com.project.myPet.service.MemberService;
@@ -54,25 +56,45 @@ public class MemberController {
 						  		HttpSession session, 
 						  		Model model) {
 		
-		
-		JSONObject resultData = new JSONObject();
-
 		log.info("memInfo Controller");
 		
+		JSONObject resultData = new JSONObject();
+		ObjectMapper mapper = new ObjectMapper();
 		boolean flag = session.getAttribute("SESS_LOGIN_INFO") != null ? true : false;
 		
-		if(flag == true) {
+		
+//		if(flag == true) {
 //			log.info("aaaaa");
-			String memEmail = ((MemberDTO)session.getAttribute("SESS_LOGIN_INFO")).getMemEmail();
+//			String memEmail = ((MemberDTO)session.getAttribute("SESS_LOGIN_INFO")).getMemEmail();
 			
-			MemberDTO member = memberService.getMember(memEmail);
-			log.info("조회된 회원 정보 : " + member);
+//			
 			
-			resultData.put("member",member);
-			resultData.put("result","success");
-		} else {
-			resultData.put("result","fail");
-		}
+			try {
+				
+//				MemberDTO member = memberService.getMember(memEmail);
+				MemberDTO member = new MemberDTO();
+				
+				member.setMemEmail("eunji");
+				member.setName("이은지");
+				member.setPhone("01091098751");
+				
+				log.info("조회된 회원 정보 : " + member);
+				
+				
+				String memString = mapper.writeValueAsString(member);
+				
+				
+				resultData.put("member",memString);
+				resultData.put("result","success");
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			
+//		} else {
+//			resultData.put("result","fail");
+//		}
 		
 		return resultData.toJSONString();
 	}
