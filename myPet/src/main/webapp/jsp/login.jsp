@@ -66,7 +66,7 @@
                                             </div>
                                         </div>
 <!--                                         <input type="submit" class="btn btn-primary btn-user btn-block" value ="Login" /> -->
-												<button onClick="login_action();"></button>
+												<button onclick="login_action();" class="btn btn-primary btn-user btn-block">login</button>
                                         <hr>
                                         <a href="index.html" class="btn btn-google btn-user btn-block">
                                             <i class="fab fa-google fa-fw"></i> Login with Google

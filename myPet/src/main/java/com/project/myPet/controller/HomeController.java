@@ -77,9 +77,6 @@ public class HomeController {
 		MemberDTO member = null;
 		String forwardPage = "";
 		
-		
-		
-		
 		msg = memberService.memLoginCheck(memEmail, pw);
 		
 		if (msg.equals("로그인에 성공하였습니다.")) {
@@ -93,6 +90,7 @@ public class HomeController {
 				sessionVO.setMemEmail(member.getMemEmail());
 				sessionVO.setPw(member.getPw());
 				sessionVO.setName(member.getName());
+				sessionVO.setGender(member.getGender());
 				sessionVO.setPhone(member.getPhone());
 				sessionVO.setAddress(member.getAddress());
 				sessionVO.setRestTime(member.getRestTime());
@@ -156,7 +154,27 @@ public class HomeController {
 		return resultData.toJSONString();
 	}
 	
-	
+	@ResponseBody
+	@RequestMapping("/logout_action")
+	public String logoutAction(HttpSession session, 
+							   HttpServletRequest request,
+							   Model model) {
+		
+		log.info("logoutAction");
+		
+		JSONObject resultData = new JSONObject();
+		
+		boolean flag = session.getAttribute("SESS_LOGIN_INFO") != null ? true : false;
+		
+		if(flag == true) {
+			session.invalidate();
+			resultData.put("result","success");
+		} else {
+			resultData.put("result","fail");
+		}
+		
+		return resultData.toJSONString();
+	}
 	
 	
 	

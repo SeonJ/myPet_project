@@ -4,8 +4,10 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.project.myPet.domain.MemberDTO;
 import com.project.myPet.service.DogService;
@@ -44,30 +47,34 @@ public class MemberController {
 		
 		return "/memberA/dogInfo";
 	}
-	
-	@RequestMapping(value = "memInfo", method = RequestMethod.GET)
-	public String memInfo() {
-		
-		log.info("memInfo controller");
-		
-		return "/memberA/memInfo";
-	}
-	
-	@RequestMapping(value = "memInfo_Action", method = RequestMethod.GET)
-	public String memInfoAction(@RequestParam("memEmail") String memEmail,
-						  		@RequestParam("pw") String pw,
+
+	@ResponseBody
+	@RequestMapping(value = "memInfo")
+	public String memInfo(
 						  		HttpSession session, 
 						  		Model model) {
 		
+		
+		JSONObject resultData = new JSONObject();
+
 		log.info("memInfo Controller");
 		
-		log.info("memEmail : " + memEmail);
+		boolean flag = session.getAttribute("SESS_LOGIN_INFO") != null ? true : false;
 		
-		MemberDTO member = memberService.getMember(memEmail);
+		if(flag == true) {
+//			log.info("aaaaa");
+			String memEmail = ((MemberDTO)session.getAttribute("SESS_LOGIN_INFO")).getMemEmail();
+			
+			MemberDTO member = memberService.getMember(memEmail);
+			log.info("조회된 회원 정보 : " + member);
+			
+			resultData.put("member",member);
+			resultData.put("result","success");
+		} else {
+			resultData.put("result","fail");
+		}
 		
-		log.info("조회된 회원 정보 : " + member);
-		
-		return "/memberA/memInfo";
+		return resultData.toJSONString();
 	}
 	
 	@RequestMapping(value = "myDogList", method = RequestMethod.GET)
@@ -94,7 +101,14 @@ public class MemberController {
 		return "";
 	}
 	
-	
+	@ResponseBody
+	@RequestMapping("/update_memInfo")
+	public String updateMemInfo(HttpSession session, 
+							    HttpServletRequest request,
+							    Model model) {
+		
+		return "";
+	}
 	
 	
 	

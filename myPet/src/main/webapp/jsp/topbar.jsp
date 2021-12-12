@@ -180,7 +180,7 @@
                                     Activity Log
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                <a class="dropdown-item" onclick="logout_action();" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout
                                 </a>
@@ -192,6 +192,37 @@
                 </nav>
                 <!-- End of Topbar -->
 
+<script>
 
+function logout_action(){
+	
+	
+	$.ajax({
+		type: "POST", 
+		url:"/myPet/logout_action",
+		dataType:"json", //서버가 요청 URL을 통해서 응답하는 내용의 타입
+		success : function(result){
+			
+			console.log("result :",result);
+			
+			if(result.result == "success"){
+				alert("로그아웃 되었습니다.")
+				location.reload();
+			}else{
+				alert("로그아웃에 실패하셨습니다.");
+			}
+		
+			
+		},
+		error : function(a, b, c){
+		}
+	});
+	
+	
+}
+
+
+</script>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
 
 
