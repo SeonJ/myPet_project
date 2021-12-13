@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8"><title>개와함개::마이 프로필</title>
+<meta charset="UTF-8"><title>개와함개::마이 프로필 정보 수정</title>
 <!-- <link href="../styledog.css" rel="stylesheet" type="text/css" > -->
 </head>
 
@@ -28,50 +28,6 @@
 
 <body id="page-top">
 
-<script>
-
-$(function($) {
-	   
-	   memInfo_action();
-	   
-
-	})
-
-function memInfo_action(){
-	
-	$.ajax({
-		type: "POST", 
-		url:"/myPet/memberA/memInfo_action",
-		dataType:"json", //서버가 요청 URL을 통해서 응답하는 내용의 타입
-		success : function(result){
-			
-			console.log("result :",result);
-			console.log(result.member);
-			
-			if(result.result == "success"){
-				console.log("aaaaa");
-// 				alert("마이페이지로 이동합니다.");
-				result.member;
-// 				location.href="/myPet/memberA/memInfo";
-			}else{
-				alert("로그인하셔야 이용 가능한 페이지입니다.");
-				location.href="/myPet/login"
-			}
-			
-		
-			
-		},
-		error : function(a, b, c){
-		}
-	});
-
-}
-
-
-
-</script>
-<script src="http://code.jquery.com/jquery-latest.js"></script>
-
     <!-- Page Wrapper -->
     <div id="wrapper">
 
@@ -95,7 +51,7 @@ function memInfo_action(){
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">마이 프로필</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">마이 프로필 정보 수정</h6>
                         </div>
                      
                         <div class="card-body">
@@ -106,34 +62,42 @@ function memInfo_action(){
                                     
                                     <tbody>
                                         <tr>
-                                        	<td>이메일</td>
+                                        	<th>이메일</th>
 											<td>${member.memEmail}</td>
 										</tr>
 										<tr>
-											<td>이름</td>
+                                        	<th>비밀번호</th>
+											<td>
+												<input type="password" id="pw" name="pw" value="">
+											</td>
+										</tr>
+										<tr>
+											<th>이름</th>
 											<td>${member.name}</td>
 										</tr>
 										<tr>
-											<td>성별</td>
+											<th>성별</th>
 											<td>${member.gender}</td>
 										</tr>
 										<tr>
-											<td>연락처</td>
-											<td>${member.phone}</td>
+											<th>연락처</th>
+											<td>
+												<input type="text" id="phone" name="phone" value="">
+											</td>
 										</tr>
 										<tr>
-											<td>주소</td>
-											<td>${member.address}</td>
+											<th>주소</th>
+											<td>
+												<input type="text" id="address" name="address" value="">
+											</td>
 										</tr>
 										<tr>
-											<td>이용권 잔여시간</td>
+											<th>이용권 잔여시간</th>
 											<td> ${member.restTime} 시간</td>
 										</tr>
                                     </tbody>
                                 </table>
-								<!-- <button class="btn btn-primary btn-user btn-block" onclick="update_memInfo();" >회원정보수정</button> -->
-								<a class="btn btn-primary btn-user btn-block" href="${pageContext.request.contextPath}/memberA/memUpdateInfo" >회원정보수정</button>
-								<button class="btn btn-primary btn-user btn-block" onclick="delete_memInfo();" >탈퇴</button>
+								<button class="btn btn-primary btn-user btn-block" onclick="update_memInfo();" >회원정보수정</button>
                             </div>
                         </div>
                     </div>
@@ -181,40 +145,37 @@ function memInfo_action(){
 
 
 </body>
-
 <script>
 
-function delete_memInfo(){
+function update_memInfo(){
 	
-	if(confirm("정말 삭제 하시겠습니까?")){
-		
-		$.ajax({
-			type: "POST", 
-			url:"/myPet/memberA/deleteMem_action",
-			dataType:"json", //서버가 요청 URL을 통해서 응답하는 내용의 타입
-			success : function(result){
-				
-				console.log("result :",result);
-				
-				if(result.result == "success"){
-					alert("회원 탈퇴되었습니다.");
-					location.href="/myPet/";
-				}else{
-					alert("회원 탈퇴에 실패하셨습니다.");
-				}
-				
-				
-			},
-			error : function(a, b, c){
+	
+	$.ajax({
+		type: "POST", 
+		url:"/myPet/memberA/update_action",
+		dataType:"json", //서버가 요청 URL을 통해서 응답하는 내용의 타입
+		data: {
+				memEmail : $('#memEmail').val(),
+				pw : $('#pw').val()
+		},
+		success : function(result){
+			
+			console.log("result :",result);
+			
+			if(result.result == "success"){
+				location.href="/myPet/memberA/memInfo";
+			}else{
+				alert("회원 정보 수정에 실패하셨습니다.");
 			}
-		});
-		
-	} else {
-		console.log("취소");
-	}
+			
+		},
+		error : function(a, b, c){
+		}
+	});
+	
 }
-
 
 </script>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
+
 </html>

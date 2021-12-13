@@ -25,12 +25,6 @@
 
 <body class="bg-gradient-primary">
 
-<c:if test="${not empty msg}">
-	<script>
-		alert("${msg}");
-	</script>
-</c:if>
-
     <div class="container">
 
 <!--         Outer Row -->
@@ -120,18 +114,10 @@ function login_action(){
 			}
 			
 			
-			
-			
-			
 		},
 		error : function(a, b, c){
 		}
 	});
-	
-	
-	
-	
-	
 	
 	
 }

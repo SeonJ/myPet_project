@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -49,14 +50,23 @@ public class MemberController {
 		
 		return "/memberA/dogInfo";
 	}
+	
+	@RequestMapping(value = "memInfo")
+	public String memInfo(Locale locale, Model model) {
+		
+		log.info("memInfo.", locale);
+		
+		return "/memberA/memInfo";
+	}
+
 
 	@ResponseBody
-	@RequestMapping(value = "memInfo")
-	public String memInfo(
+	@RequestMapping(value = "memInfo_action")
+	public String memInfoAction(
 						  		HttpSession session, 
 						  		Model model) {
 		
-		log.info("memInfo Controller");
+		log.info("memInfoAction Controller");
 		
 		JSONObject resultData = new JSONObject();
 		ObjectMapper mapper = new ObjectMapper();
@@ -64,19 +74,19 @@ public class MemberController {
 		
 		
 //		if(flag == true) {
-//			log.info("aaaaa");
-//			String memEmail = ((MemberDTO)session.getAttribute("SESS_LOGIN_INFO")).getMemEmail();
+			log.info("aaaaa");
+			String memEmail = ((MemberDTO)session.getAttribute("SESS_LOGIN_INFO")).getMemEmail();
 			
 //			
 			
 			try {
 				
-//				MemberDTO member = memberService.getMember(memEmail);
-				MemberDTO member = new MemberDTO();
-				
-				member.setMemEmail("eunji");
-				member.setName("이은지");
-				member.setPhone("01091098751");
+				MemberDTO member = memberService.getMember(memEmail);
+//				MemberDTO member = new MemberDTO();
+//				
+//				member.setMemEmail("eunji");
+//				member.setName("이은지");
+//				member.setPhone("01091098751");
 				
 				log.info("조회된 회원 정보 : " + member);
 				
@@ -123,6 +133,14 @@ public class MemberController {
 		return "";
 	}
 	
+	@RequestMapping("/memUpdateInfo")
+	public String memUpdateInfo(HttpSession session, 
+							    HttpServletRequest request,
+							    Model model) {
+		
+		return "/memberA/memUpdateInfo";
+	}
+	
 	@ResponseBody
 	@RequestMapping("/update_memInfo")
 	public String updateMemInfo(HttpSession session, 
@@ -132,6 +150,34 @@ public class MemberController {
 		return "";
 	}
 	
-	
+	@ResponseBody
+	@RequestMapping("/deleteMem_action")
+	public String deleteMemAction(HttpSession session, 
+								  HttpServletRequest request,
+								  Model model) {
+		
+		log.info("deleteMemAction");
+		
+		JSONObject resultData = new JSONObject();
+		
+		boolean flag = session.getAttribute("SESS_LOGIN_INFO") != null ? true : false;
+		
+//		if(flag == true) {
+			String memEmail = ((MemberDTO)session.getAttribute("SESS_LOGIN_INFO")).getMemEmail();
+			
+			try {
+				memberService.deleteMem(memEmail);
+				session.invalidate();
+				
+				resultData.put("result","success");
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+//		} else {
+//			resultData.put("result","fail");
+//		}
+		
+		return resultData.toJSONString();
+	}
 	
 }
