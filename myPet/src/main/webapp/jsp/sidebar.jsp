@@ -12,7 +12,7 @@
         </div>
         <div class="sidebar-brand-text mx-3">My Pet</div>
      </a>
-     <li class="nav-item"><div class="nav-link" style="text-align:center;"><img src="/img/emma.png" style="width:150px; height:150px; border-radius: 50%; "></div></li>
+     <li class="nav-item"><div class="nav-link" style="text-align:center;"><img src="/myPet/resources/img/emma.png" style="width:150px; height:150px; border-radius: 50%; "></div></li>
      <li><h6 style="color:black; text-align:center;">사용시간: 100분</h6></li>
      <li><h6 style="color:black; text-align:center;">잔여시간: 100분</h6></li>
     
@@ -88,7 +88,5 @@ function delete_memInfo(){
 
 
 </script>
-<script src="http://code.jquery.com/jquery-latest.js"></script>
-
 
 

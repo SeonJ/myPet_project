@@ -4,7 +4,6 @@
 <html>
 <head>
 <meta charset="UTF-8"><title>개와함개::마이 프로필</title>
-<!-- <link href="../styledog.css" rel="stylesheet" type="text/css" > -->
 </head>
 
     <meta charset="utf-8">
@@ -15,69 +14,14 @@
 
     <title>마이페이지</title>
 
-    <!-- Custom fonts for this template-->
-<!--     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> -->
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
-
-    <!-- Custom styles for this template-->
-<!--     <link href="css/sb-admin-2.min.css" rel="stylesheet"> -->
-	<link href="../resources/css/sb-admin-2.css" rel="stylesheet">
 </head>
 
 <body id="page-top">
-
-<script>
-
-$(function($) {
-	   
-	   memInfo_action();
-	   
-
-	})
-
-function memInfo_action(){
-	
-	$.ajax({
-		type: "POST", 
-		url:"/myPet/memberA/memInfo_action",
-		dataType:"json", //서버가 요청 URL을 통해서 응답하는 내용의 타입
-		success : function(result){
-			
-			console.log("result :",result);
-			console.log(result.member);
-			
-			if(result.result == "success"){
-				console.log("aaaaa");
-// 				alert("마이페이지로 이동합니다.");
-				result.member;
-// 				location.href="/myPet/memberA/memInfo";
-			}else{
-				alert("로그인하셔야 이용 가능한 페이지입니다.");
-				location.href="/myPet/login"
-			}
-			
-		
-			
-		},
-		error : function(a, b, c){
-		}
-	});
-
-}
-
-
-
-</script>
-<script src="http://code.jquery.com/jquery-latest.js"></script>
 
     <!-- Page Wrapper -->
     <div id="wrapper">
 
 		 <jsp:include page="/jsp/sidebar.jsp" />
-
-
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
@@ -101,38 +45,38 @@ function memInfo_action(){
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <div class="nav-link" style="text-align:center;"><img src="../resources/img/emma.png" style="width:150px; height:150px; border-radius: 50%; ">
+                                    <div class="nav-link" style="text-align:center;"><img src="/myPet/resources/img/emma.png" style="width:150px; height:150px; border-radius: 50%; ">
                                     </div>
                                     
                                     <tbody>
                                         <tr>
                                         	<td>이메일</td>
-											<td>${member.memEmail}</td>
+											<td id="memEmail"></td>
 										</tr>
 										<tr>
 											<td>이름</td>
-											<td>${member.name}</td>
+											<td id="name"></td>
 										</tr>
 										<tr>
 											<td>성별</td>
-											<td>${member.gender}</td>
+											<td id="gender"></td>
 										</tr>
 										<tr>
 											<td>연락처</td>
-											<td>${member.phone}</td>
+											<td id="phone"></td>
 										</tr>
 										<tr>
 											<td>주소</td>
-											<td>${member.address}</td>
+											<td></td>
 										</tr>
 										<tr>
 											<td>이용권 잔여시간</td>
-											<td> ${member.restTime} 시간</td>
+											<td></td>
 										</tr>
                                     </tbody>
                                 </table>
 								<!-- <button class="btn btn-primary btn-user btn-block" onclick="update_memInfo();" >회원정보수정</button> -->
-								<a class="btn btn-primary btn-user btn-block" href="${pageContext.request.contextPath}/memberA/memUpdateInfo" >회원정보수정</button>
+								<button class="btn btn-primary btn-user btn-block" onclick="location.href='${pageContext.request.contextPath}/memberA/memUpdateInfo'">회원정보수정</button>
 								<button class="btn btn-primary btn-user btn-block" onclick="delete_memInfo();" >탈퇴</button>
                             </div>
                         </div>
@@ -150,39 +94,43 @@ function memInfo_action(){
     </div>
     <!-- End of Page Wrapper -->
 
-<!--     Scroll to Top Button -->
-<!--     <a class="scroll-to-top rounded" href="#page-top"> -->
-<!--         <i class="fas fa-angle-up"></i> -->
-<!--     </a> -->
-
-<!--     Logout Modal -->
-<!--     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" -->
-<!--         aria-hidden="true"> -->
-<!--         <div class="modal-dialog" role="document"> -->
-<!--             <div class="modal-content"> -->
-<!--                 <div class="modal-header"> -->
-<!--                     <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5> -->
-<!--                     <button class="close" type="button" data-dismiss="modal" aria-label="Close"> -->
-<!--                         <span aria-hidden="true">×</span> -->
-<!--                     </button> -->
-<!--                 </div> -->
-<!--                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div> -->
-<!--                 <div class="modal-footer"> -->
-<!--                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button> -->
-<!--                     <a class="btn btn-primary" href="login.html">Logout</a> -->
-<!--                 </div> -->
-<!--             </div> -->
-<!--         </div> -->
-<!--     </div> -->
-
-    <!-- Bootstrap core JavaScript-->
-    <script src="/js/jquery.min.js"></script>
-    <script src="/js/bootstrap.bundle.min.js"></script>
-
-
-</body>
 
 <script>
+
+$(function($){
+	   
+	   memInfo_action();
+
+});
+
+function memInfo_action(){
+	
+	$.ajax({
+		type: "POST", 
+		url:"/myPet/memberA/memInfo_action",
+		dataType:"json", //서버가 요청 URL을 통해서 응답하는 내용의 타입
+		success : function(result){
+			
+			var member = JSON.parse(result.member);
+			console.log(member);
+			
+			var memEmail = member.memEmail;
+			var name = member.name;
+			var gender = member.gender;
+			var phone = member.phone;
+			
+			$('#memEmail').text(memEmail);
+			$('#name').text(name);
+			$('#gender').text(gender);
+			$('#phone').text(phone);
+			
+		},
+		error : function(a, b, c){
+		}
+	});
+
+}
+
 
 function delete_memInfo(){
 	
@@ -216,5 +164,5 @@ function delete_memInfo(){
 
 
 </script>
-<script src="http://code.jquery.com/jquery-latest.js"></script>
+</body>
 </html>

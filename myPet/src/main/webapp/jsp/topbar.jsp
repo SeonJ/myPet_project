@@ -104,7 +104,7 @@
                                 </h6>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
                                     <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_1.svg"
+                                        <img class="rounded-circle" src="/myPet/resources/img/undraw_profile_1.svg"
                                             alt="...">
                                         <div class="status-indicator bg-success"></div>
                                     </div>
@@ -116,7 +116,7 @@
                                 </a>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
                                     <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_2.svg"
+                                        <img class="rounded-circle" src="/myPet/resources/img/undraw_profile_2.svg"
                                             alt="...">
                                         <div class="status-indicator"></div>
                                     </div>
@@ -128,7 +128,7 @@
                                 </a>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
                                     <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_3.svg"
+                                        <img class="rounded-circle" src="/myPet/resources/img/undraw_profile_3.svg"
                                             alt="...">
                                         <div class="status-indicator bg-warning"></div>
                                     </div>
@@ -162,7 +162,7 @@
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
                                 <img class="img-profile rounded-circle"
-                                    src="img/undraw_profile.svg">
+                                    src="/myPet/resources/img/undraw_profile.svg">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -192,6 +192,23 @@
                 </nav>
                 <!-- End of Topbar -->
 
+
+ <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+<!-- Custom styles for this template-->
+<link href="/myPet/resources/css/sb-admin-2.css" rel="stylesheet">
+<!-- Font Awesome Free -->
+<link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"
+  />
+
+ <!-- Bootstrap core JavaScript-->
+<script src="/myPet/resources/js/jquery.min.js"></script>
+<script src="/myPet/resources/js/bootstrap.bundle.min.js"></script>
+
+<script src="http://code.jquery.com/jquery-latest.js"></script>
 <script>
 
 function logout_action(){
@@ -203,7 +220,6 @@ function logout_action(){
 		dataType:"json", //서버가 요청 URL을 통해서 응답하는 내용의 타입
 		success : function(result){
 			
-			console.log("result :",result);
 			
 			if(result.result == "success"){
 				alert("로그아웃 되었습니다.")
@@ -223,6 +239,5 @@ function logout_action(){
 
 
 </script>
-<script src="http://code.jquery.com/jquery-latest.js"></script>
 
-
+    
