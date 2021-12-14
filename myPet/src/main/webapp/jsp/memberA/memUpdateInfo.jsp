@@ -57,43 +57,46 @@
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <div class="nav-link" style="text-align:center;"><img src="../resources/img/emma.png" style="width:150px; height:150px; border-radius: 50%; ">
+                                    <div class="nav-link" style="text-align:center;">
+                                    	<img src="../resources/img/emma.png" style="width:150px; height:150px; border-radius: 50%; ">
                                     </div>
                                     
                                     <tbody>
                                         <tr>
                                         	<th>이메일</th>
-											<td>${member.memEmail}</td>
+											<td id="memEmail"></td>
 										</tr>
 										<tr>
                                         	<th>비밀번호</th>
 											<td>
-												<input type="password" id="pw" name="pw" value="">
+												<input type="text" id="pw" name="pw">
+											</td>
+										</tr>
+										<tr>
+                                        	<th>프로필 사진</th>
+											<td>
+												<input type="text" id="photo" name="photo">
 											</td>
 										</tr>
 										<tr>
 											<th>이름</th>
-											<td>${member.name}</td>
+											<td id="name"></td>
 										</tr>
 										<tr>
 											<th>성별</th>
-											<td>${member.gender}</td>
+											<td id="gender"></td>
 										</tr>
 										<tr>
 											<th>연락처</th>
 											<td>
-												<input type="text" id="phone" name="phone" value="">
+												<input type="text" id="phone" name="phone">
 											</td>
 										</tr>
 										<tr>
 											<th>주소</th>
 											<td>
-												<input type="text" id="address" name="address" value="">
+												<input type="text" id="address" name="address">
 											</td>
-										</tr>
-										<tr>
-											<th>이용권 잔여시간</th>
-											<td> ${member.restTime} 시간</td>
 										</tr>
                                     </tbody>
                                 </table>
@@ -147,29 +150,77 @@
 </body>
 <script>
 
-function update_memInfo(){
-	
+$(function($){
+	   
+	   update_form();
+
+});
+
+function update_form(){
 	
 	$.ajax({
 		type: "POST", 
-		url:"/myPet/memberA/update_action",
+		url:"/myPet/memberA/update_form",
+		dataType:"json", //서버가 요청 URL을 통해서 응답하는 내용의 타입
+		success : function(result){
+			
+			var member = JSON.parse(result.member);
+			console.log(result.member);
+			console.log(member);
+			
+			var memEmail = member.memEmail;
+			var pw = member.pw;
+			var photo = member.photo;
+			var name = member.name;
+			var gender = member.gender;
+			var phone = member.phone;
+			var address = member.address;
+			
+			$('#memEmail').text(memEmail);
+			$('#pw').val(pw);
+			$('#photo').val(photo);
+			$('#name').text(name);
+			$('#gender').text(gender);
+			$('#phone').val(phone);
+			$('#address').val(address);
+			
+		},
+		error : function(a, b, c){
+		}
+	});
+
+}
+
+function update_memInfo(){
+	
+	$.ajax({
+		type: "POST", //요청 메소드 방식
+		url:"/myPet/memberA/update_memInfo",
 		dataType:"json", //서버가 요청 URL을 통해서 응답하는 내용의 타입
 		data: {
-				memEmail : $('#memEmail').val(),
-				pw : $('#pw').val()
+			pw : $('#pw').val(),
+			photo : $('#photo').val(),
+			phone : $('#phone').val(),
+			address : $('#address').val()
 		},
 		success : function(result){
+			
+// 			console.log(result);
+			
 			
 			console.log("result :",result);
 			
 			if(result.result == "success"){
+				alert("회원 정보를 수정하였습니다.")
 				location.href="/myPet/memberA/memInfo";
 			}else{
-				alert("회원 정보 수정에 실패하셨습니다.");
+				alert("회원정보 수정에 실패하였습니다");
 			}
 			
 		},
 		error : function(a, b, c){
+			//통신 실패시 발생하는 함수(콜백)
+			alert(a + b + c);
 		}
 	});
 	

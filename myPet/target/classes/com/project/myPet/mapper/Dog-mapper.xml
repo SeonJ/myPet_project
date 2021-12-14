@@ -5,7 +5,7 @@
 	<!-- 강아지 정보 생성 -->
 	<insert id="insertDog" parameterType="DogDTO">
 		INSERT INTO dog VALUES (
-			dog_sep.nextval, #{name}, #{photo}, #{email}, #{weight}, #{speices}
+			dog_seq.nextval, #{name}, #{photo}, #{email}, #{weight}, #{speices}
 		)
 	</insert>
 	

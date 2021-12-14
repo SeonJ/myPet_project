@@ -33,7 +33,7 @@
 	<!-- 회원 정보 수정 -->
 	<update id="updateMemInfo" parameterType="MemberDTO">
 		UPDATE member SET 
-		pw=#{pw}, address=#{address}, phone=#{phone}, photo=#{photo}, name=#{name}, gender=#{gender}
+		pw=#{pw}, photo=#{photo}, phone=#{phone}, address=#{address}
 		WHERE memEmail=#{memEmail}
 	</update>
 	

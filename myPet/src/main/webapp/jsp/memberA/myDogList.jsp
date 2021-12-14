@@ -6,13 +6,64 @@
 <link href="../styledog.css" rel="stylesheet" type="text/css" >
 </head>
 
-<body>
-<br /><br />
-<div align="center">
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+		 <jsp:include page="/jsp/sidebar.jsp" />
+
+
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+            <!-- Main Content -->
+            <div id="content">
+				 <jsp:include page="/jsp/topbar.jsp" />
+               
+
+              <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <h1 class="h3 mb-2 text-gray-800">Tables</h1>
+                    
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                            	<div class="nav-link" style="align:left;">
+                            		<img src="/myPet/resources/img/undraw_rocket.png" style="width:200px; height:200px; border-radius: 50%;">
+                            		<div style="margin-left: 15px; margin-top: 20px">
+                                		<button id="name" onclick="dogInfo();" class="btn btn-primary btn-user btn-block ml-2" style="width:150px;"></button>
+                                	</div>
+                                </div>
+                            	<div style="margin-top: 200px">
+                            		<button class="btn btn-primary btn-user btn-block" onclick="location.href='${pageContext.request.contextPath}/memberA/insertMyDog'">반려견 등록하기</button>
+                            	</div>
+                            </div>
+                        </div>
+                    </div>
+                 </div>
+                  <!-- /.container-fluid -->
+            </div>
+            <!-- End of Main Content -->
+
+           
+            <jsp:include page="/jsp/footer.jsp" />
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+<!-- <div align="center">
 <h1 align="center">반려견 목록</h1>
 	<table class="mini">
 		<tr>
-			<td colspan="3" style="border-top: 1px solid white;"><button onclick="insertMyDog();"> 강아지 등록하기 </button></td> 
+			<td colspan="3" style="border-top: 1px solid white;"><a href="${pageContext.request.contextPath}/memberA/insertMyDog"> 강아지 등록하기 </a></td> 
 		</tr>
 		<tr class="header">
 			<td class="num">번호</td>
@@ -27,50 +78,48 @@
 					<td><a href="dogInfo.jsp?"><font style="text-decoration:underline;"></font></a></td>
 					<td></td>
 				</tr> 
-	</table>
+	</table> -->
 </body>
-
-
 <script>
-$(function(){ 
-	
-	
+
+$(function($){
+	   
+	   dogList_action();
+
 });
 
-
-
-
-
-function insertMyDog(){
+function dogList_action(){
 	
 	$.ajax({
-		type: "GET", //요청 메소드 방식
-		url:"/memberA/insertMyDog",
-		dataType:json, //서버가 요청 URL을 통해서 응답하는 내용의 타입
-		data: {memEmail : 'eunji'},
+		type: "POST", 
+		url:"/myPet/memberA/dogList_action",
+		dataType:"json", //서버가 요청 URL을 통해서 응답하는 내용의 타입
 		success : function(result){
 			
+			var member = JSON.parse(result.member);
+			console.log(result.member);
+			console.log(member);
 			
-			//서버의 응답데이터가 클라이언트에게 도착하면 자동으로 실행되는함수(콜백)
-			//result - 응답데이터
-			//$('#result').text(result);
-			alert(result);
+			var memEmail = member.memEmail;
+			var name = member.name;
+			var gender = member.gender;
+			var phone = member.phone;
+			var address = member.address;
+			var restTime = member.restTime;
+			
+			$('#memEmail').text(memEmail);
+			$('#name').text(name);
+			$('#gender').text(gender);
+			$('#phone').text(phone);
+			$('#address').text(address);
+			$('#restTime').text(restTime);
+			
 		},
 		error : function(a, b, c){
-			//통신 실패시 발생하는 함수(콜백)
-			alert(a + b + c);
 		}
 	});
-	
+
 }
-
-
-
-
-
-
-
-
 
 </script>
 </html>

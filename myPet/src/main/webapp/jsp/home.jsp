@@ -32,8 +32,6 @@
 					<h1>Hello world!</h1>
 					<P>The time on the server is ${serverTime}. </P>
 					SESS_LOGIN_INFO : ${sessionScope.SESS_LOGIN_INFO}
-					<a href="<c:url value='/memberA/memInfo_action' />">My Page</a>
-					<button onclick="${pageContext.request.contextPath}/memberA/memInfo_action" >마이페이지</button>
                  </div>
                   <!-- /.container-fluid -->
             </div>

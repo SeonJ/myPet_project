@@ -67,11 +67,11 @@
 										</tr>
 										<tr>
 											<td>주소</td>
-											<td></td>
+											<td id="address"></td>
 										</tr>
 										<tr>
 											<td>이용권 잔여시간</td>
-											<td></td>
+											<td id="restTime"></td>
 										</tr>
                                     </tbody>
                                 </table>
@@ -112,17 +112,22 @@ function memInfo_action(){
 		success : function(result){
 			
 			var member = JSON.parse(result.member);
+			console.log(result.member);
 			console.log(member);
 			
 			var memEmail = member.memEmail;
 			var name = member.name;
 			var gender = member.gender;
 			var phone = member.phone;
+			var address = member.address;
+			var restTime = member.restTime;
 			
 			$('#memEmail').text(memEmail);
 			$('#name').text(name);
 			$('#gender').text(gender);
 			$('#phone').text(phone);
+			$('#address').text(address);
+			$('#restTime').text(restTime);
 			
 		},
 		error : function(a, b, c){

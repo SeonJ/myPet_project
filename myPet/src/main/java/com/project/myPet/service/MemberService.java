@@ -42,8 +42,8 @@ public class MemberService {
 	/**
 	 * 회원 정보 생성
 	 * 
-	 * @param memberDTO 강아지 정보
-	 * @return 강아지 정보 생성 성공 여부
+	 * @param memberDTO 회언 정보
+	 * @return 회원 정보 생성 성공 여부
 	 */
 	@Transactional(propagation=Propagation.REQUIRED)
 	public boolean insertMem(MemberDTO member) {
