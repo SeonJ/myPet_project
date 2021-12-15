@@ -55,9 +55,9 @@
 <!--                                 Card Body -->
 <!--                                 <div class="card-body"> -->
 <!--                                 	<img id="photo" src="/myPet/resources/img/undraw_rocket.png" style="width:200px; height:200px; border-radius: 50%;"> -->
-<!-- <!--                                 	<div style="margin-left: 15px; margin-top: 20px"> -->  
-<!-- <!--                                 		<button id="name" onclick="dogInfo();" class="btn btn-primary btn-user btn-block ml-2" style="width:150px;"></button> --> 
-<!-- <!--                                 	</div> --> 
+<!--                                  	<div style="margin-left: 15px; margin-top: 20px">   -->
+<!--                                 		<button id="name" onclick="dogInfo();" class="btn btn-primary btn-user btn-block ml-2" style="width:150px;">상세보기</button>  -->
+<!--                                 	</div>  -->
 <!--                                 </div> -->
 <!--                             </div> -->
                         </div>
@@ -132,7 +132,9 @@ function dogList_action(){
 				dog_card +='</div></div></div>';
 				dog_card +='<div class="card-body">';
 				dog_card +='<img id="photo" src="/myPet/resources/img/undraw_rocket.png" style="width:200px; height:200px; border-radius: 50%;">';
-				dog_card +='</div></div>';
+				dog_card +='<div style="margin-left: 15px; margin-top: 20px">';
+				dog_card +='<button id="name" onclick="dogInfo();" class="btn btn-primary btn-user btn-block ml-2" style="width:150px;">상세보기</button> ';
+				dog_card +='</div></div></div>';
                 
 				
 				
