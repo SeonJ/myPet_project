@@ -18,7 +18,7 @@
     
      <!-- <li class="nav-item"><button class="nav-link" style="text-align:center;" onclick="memInfo_action();">마이프로필</button></li> -->
      <li class="nav-item"><a class="nav-link" style="text-align:center;" href="${pageContext.request.contextPath}/memberA/memInfo">마이프로필</a></li>
-     <li class="nav-item"><a class="nav-link" style="text-align:center;" href="${pageContext.request.contextPath}/memberA/dogInfo">반려견프로필</a></li>
+     <li class="nav-item"><a class="nav-link" style="text-align:center;" href="${pageContext.request.contextPath}/memberA/myDogList">반려견프로필</a></li>
      <li class="nav-item"><a class="nav-link" style="text-align:center;" href="delete_memInfo();">회원탈퇴</a></li>
      <li class="nav-item"><a class="nav-link" style="text-align:center;" href="${pageContext.request.contextPath}/">메인으로</a></li>
 

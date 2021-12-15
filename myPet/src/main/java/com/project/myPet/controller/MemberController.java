@@ -2,6 +2,7 @@ package com.project.myPet.controller;
 
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -278,11 +280,38 @@ public class MemberController {
 	
 	
 	@RequestMapping(value = "myDogList", method = RequestMethod.GET)
-	public String myDogList(Locale locale, Model model) {
-		log.info("myDogList", locale);
+	public String myDogList(HttpSession session, 
+							Model model) {
 		
+		log.info("myDogList Controller");
 		
-		return "/memberA/myDogList";
+		List<DogDTO> list = null; //dto타입으로 리스트 만들어주기
+	      
+	    JSONObject resultData = new JSONObject();
+	    JSONArray listDataJArray = new JSONArray();
+	    JSONParser jsonParser = new JSONParser();
+	    ObjectMapper mapper = new ObjectMapper(); 
+	    String jsonList="";
+
+	    String memEmail = ((MemberDTO)session.getAttribute("SESS_LOGIN_INFO")).getMemEmail();
+	    try {
+	         
+	         
+	         list = ((List<DogDTO>)dogService.getDogList(memEmail)); // 쿼리에서 불러온 강아지 목록 리스트에 담아주기 
+	         
+//	         String listDataJsonString = ResponseUtils.getJsonResponse(response, list); //json으로 변형해준 뒤
+//	         listDataJArray = (JSONArray) jsonParser.parse(listDataJsonString); // parse해주기 
+	         
+	         jsonList = mapper.writeValueAsString(list);
+	         
+	         resultData.put("dogList", jsonList);
+	         resultData.put("result", "success");
+	    } catch (Exception e) {
+	         e.printStackTrace();
+	         resultData.put("result", "fail");
+	    }
+	    
+	    return resultData.toJSONString();
 	}
 	
 	@RequestMapping(value = "insertMyDog", method = RequestMethod.GET)

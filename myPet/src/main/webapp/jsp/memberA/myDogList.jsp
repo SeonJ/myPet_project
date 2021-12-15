@@ -36,7 +36,7 @@
                         <div class="card-body">
                             <div class="table-responsive">
                             	<div class="nav-link" style="align:left;">
-                            		<img src="/myPet/resources/img/undraw_rocket.png" style="width:200px; height:200px; border-radius: 50%;">
+                            		<img id="photo" src="/myPet/resources/img/undraw_rocket.png" style="width:200px; height:200px; border-radius: 50%;">
                             		<div style="margin-left: 15px; margin-top: 20px">
                                 		<button id="name" onclick="dogInfo();" class="btn btn-primary btn-user btn-block ml-2" style="width:150px;"></button>
                                 	</div>
@@ -88,31 +88,23 @@ $(function($){
 
 });
 
-function dogList_action(){
+function myDogList(){
 	
 	$.ajax({
 		type: "POST", 
-		url:"/myPet/memberA/dogList_action",
+		url:"/myPet/memberA/myDogList",
 		dataType:"json", //서버가 요청 URL을 통해서 응답하는 내용의 타입
 		success : function(result){
 			
-			var member = JSON.parse(result.member);
-			console.log(result.member);
-			console.log(member);
+			var dogList = JSON.parse(result.dogList);
+			console.log(result.dogList);
+			console.log(dogList);
 			
-			var memEmail = member.memEmail;
-			var name = member.name;
-			var gender = member.gender;
-			var phone = member.phone;
-			var address = member.address;
-			var restTime = member.restTime;
+			var name = dogList.name;
+			var photo = dogList.photo;
 			
-			$('#memEmail').text(memEmail);
 			$('#name').text(name);
-			$('#gender').text(gender);
-			$('#phone').text(phone);
-			$('#address').text(address);
-			$('#restTime').text(restTime);
+			$('#photo').text(photo);
 			
 		},
 		error : function(a, b, c){

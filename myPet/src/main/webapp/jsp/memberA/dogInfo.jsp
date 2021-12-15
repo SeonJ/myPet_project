@@ -44,11 +44,28 @@
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                            	<div class="nav-link" style="text-align:center;">
-                            		<img src="/myPet/resources/img/undraw_rocket.png" style="width:150px; height:150px; border-radius: 50%; ">
-                                	<button></button>
-                                </div>
-                            
+                            	<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <div class="nav-link" style="text-align:center;"><img src="/myPet/resources/img/emma.png" style="width:150px; height:150px; border-radius: 50%; ">
+                                    </div>
+                                    
+                                    <tbody>
+										<tr>
+											<td>이름</td>
+											<td id="name"></td>
+										</tr>
+										<tr>
+											<td>몸무게</td>
+											<td id="weight"></td>
+										</tr>
+										<tr>
+											<td>견종</td>
+											<td id="speices"></td>
+										</tr>
+                                    </tbody>
+                                </table>
+								<!-- <button class="btn btn-primary btn-user btn-block" onclick="update_memInfo();" >회원정보수정</button> -->
+								<button class="btn btn-primary btn-user btn-block" onclick="location.href='${pageContext.request.contextPath}/memberA/memUpdateInfo'">강아지정보수정</button>
+								<button class="btn btn-primary btn-user btn-block" onclick="delete_memInfo();" >강아지 정보 삭제</button>
                             </div>
                         </div>
                     </div>
