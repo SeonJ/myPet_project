@@ -278,9 +278,17 @@ public class MemberController {
 		return "/memberA/dogInfo";
 	}
 	
-	
 	@RequestMapping(value = "myDogList", method = RequestMethod.GET)
-	public String myDogList(HttpSession session, 
+	public String myDogList(Locale locale, Model model) {
+		log.info("myDogList.", locale);
+		
+		
+		return "/memberA/myDogList";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "myDogList_action", method = RequestMethod.POST, produces = "application/text; charset=utf8")
+	public String myDogList_action(HttpSession session, 
 							Model model) {
 		
 		log.info("myDogList Controller");
@@ -297,15 +305,14 @@ public class MemberController {
 	    try {
 	         
 	         
-	         list = ((List<DogDTO>)dogService.getDogList(memEmail)); // 쿼리에서 불러온 강아지 목록 리스트에 담아주기 
-	         
-//	         String listDataJsonString = ResponseUtils.getJsonResponse(response, list); //json으로 변형해준 뒤
-//	         listDataJArray = (JSONArray) jsonParser.parse(listDataJsonString); // parse해주기 
+	         list = dogService.getDogList(memEmail); // 쿼리에서 불러온 강아지 목록 리스트에 담아주기 
 	         
 	         jsonList = mapper.writeValueAsString(list);
 	         
+	         
 	         resultData.put("dogList", jsonList);
 	         resultData.put("result", "success");
+	         
 	    } catch (Exception e) {
 	         e.printStackTrace();
 	         resultData.put("result", "fail");
@@ -339,7 +346,7 @@ public class MemberController {
 		log.info("insertDogAction");
 		
 		JSONObject resultData = new JSONObject();
-		String memEmail = ((MemberDTO)session.getAttribute("SESS_LOGIN_INFO")).getMemEmail();
+		String memEmail =((MemberDTO)session.getAttribute("SESS_LOGIN_INFO")).getMemEmail();
 		
 		DogDTO dogDTO = new DogDTO();
 		dogDTO.setEmail(memEmail);

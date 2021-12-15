@@ -3,6 +3,9 @@
  */
 package com.project.myPet.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,9 +70,9 @@ public class DogService {
 	 * @return 강아지 정보
 	 */
 	@Transactional(readOnly=true)
-	public DogDTO getDogList(String email) {
+	public List<DogDTO> getDogList(String email) {
 		
-		DogDTO dog = null;
+		List<DogDTO> dog = new ArrayList<DogDTO>();
 		
 		try {
 			dog = dogDAO.getDogList(email);

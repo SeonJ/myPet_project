@@ -3,6 +3,8 @@
  */
 package com.project.myPet.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,10 +47,10 @@ public class DogDAO {
 	 * @param email 주인 이메일
 	 * @return 강아지 정보
 	 */
-	public DogDTO getDogList(String memEmail) {
+	public List<DogDTO> getDogList(String memEmail) {
 		
 		log.info("DogDAO.getDogList");
-		return sqlSession.selectOne(MAPPER_NS + ".getDogList", memEmail);
+		return sqlSession.selectList(MAPPER_NS + ".getDogList", memEmail);
 	}
 	
 	/**
