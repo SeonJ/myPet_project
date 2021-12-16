@@ -547,5 +547,12 @@ public class MemberController {
 		return resultData.toJSONString();
 	}
 	
+	@RequestMapping(value = "purchaseTime", method = RequestMethod.GET)
+	public String purchaseTime(Locale locale, Model model) {
+		
+		log.info("purchaseTime.", locale);
+		
+		return "/memberA/purchaseTime";
+	}
 	
 }
