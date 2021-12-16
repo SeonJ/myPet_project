@@ -126,17 +126,17 @@ function dogList_action(){
 				dog_card +='<i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i> </a>';
 				dog_card +='<div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">';
 				dog_card +='<div class="dropdown-header">Dropdown Header:</div>';
-				dog_card +='<a class="dropdown-item" href="#">수정</a>';
+				dog_card +='<a class="dropdown-item" href="${pageContext.request.contextPath}/memberA/dogUpdateInfo?dogNum='+dogList[i].dogNum+'">수정</a>';
 				dog_card +='<div class="dropdown-divider"></div>';
-				dog_card +='<a class="dropdown-item" href="#">삭제</a>';
+// 				dog_card +='<input type="text" id="dogNum" value="'+dogList[i].dogNum+'"/>';
+				dog_card +='<a class="dropdown-item" href="${pageContext.request.contextPath}/memberA/dogDeleteForm?dogNum='+dogList[i].dogNum+'">삭제</a>';
 				dog_card +='</div></div></div>';
 				dog_card +='<div class="card-body">';
 				dog_card +='<img id="photo" src="/myPet/resources/img/undraw_rocket.png" style="width:200px; height:200px; border-radius: 50%;">';
 				dog_card +='<div style="margin-left: 15px; margin-top: 20px">';
-				dog_card +='<button id="name" onclick="dogInfo();" class="btn btn-primary btn-user btn-block ml-2" style="width:150px;">상세보기</button> ';
+				dog_card +='<a href="${pageContext.request.contextPath}/memberA/dogInfo?dogNum='+dogList[i].dogNum+'" class="btn btn-primary btn-user btn-block ml-2" style="width:150px;">상세보기</a> ';
 				dog_card +='</div></div></div>';
                 
-				
 				
 				
 				$('#dog_list').append(dog_card);
@@ -155,6 +155,7 @@ function dogList_action(){
 	});
 
 }
+
 
 </script>
 </html>

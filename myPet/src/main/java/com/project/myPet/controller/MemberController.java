@@ -270,14 +270,32 @@ public class MemberController {
 		return resultData.toJSONString();
 	}
 	
+	/**
+	 * 강아지 개별 정보
+	 * 
+	 * @param dogNum 강아지 고유번호
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value = "dogInfo", method = RequestMethod.GET)
-	public String dogInfo(Locale locale, Model model) {
-		log.info("dogInfo.", locale);
+	public String dogInfo(@RequestParam("dogNum") int dogNum, 
+						  Model model) {
+		log.info("dogInfo Controller");
 		
+		DogDTO dogDTO = dogService.getDogInfo(dogNum);
+		
+		model.addAttribute("dog", dogDTO);
 		
 		return "/memberA/dogInfo";
 	}
 	
+	/**
+	 * 강아지 프로필 리스트 폼 이동
+	 * 
+	 * @param locale
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value = "myDogList", method = RequestMethod.GET)
 	public String myDogList(Locale locale, Model model) {
 		log.info("myDogList.", locale);
@@ -286,6 +304,13 @@ public class MemberController {
 		return "/memberA/myDogList";
 	}
 	
+	/**
+	 * 강아지 프로필 리스트 액션
+	 * 
+	 * @param session
+	 * @param model
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping(value = "myDogList_action", method = RequestMethod.POST, produces = "application/text; charset=utf8")
 	public String myDogList_action(HttpSession session, 
@@ -321,6 +346,13 @@ public class MemberController {
 	    return resultData.toJSONString();
 	}
 	
+	/**
+	 * 강아지 정보 등록 폼 이동
+	 * 
+	 * @param session
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value = "insertMyDog", method = RequestMethod.GET)
 	public String insertMyDog(HttpSession session, 
 							  Model model) {
@@ -333,6 +365,18 @@ public class MemberController {
 		return "/memberA/insertMyDog";
 	}
 	
+	/**
+	 * 강아지 정보 등록 액션
+	 * 
+	 * @param name 강아지 이름
+	 * @param photo 강아지 사진
+	 * @param weight 강아지 몸무게
+	 * @param speices 강아지 견종
+	 * @param session
+	 * @param request
+	 * @param model
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping("/insertDog_action")
 	public String insertDogAction(@RequestParam("name") String name, 
@@ -366,4 +410,142 @@ public class MemberController {
 		return resultData.toJSONString();
 		
 	}
+	
+	/**
+	 * 강아지 정보 삭제 패쓰워드 입력 폼 이동
+	 * 
+	 * @param dogNum 강아지 고유번호
+	 * @param session
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "dogDeleteForm")
+	public String dogDeleteForm(@RequestParam("dogNum") int dogNum,
+								HttpSession session, 
+							    Model model) {
+		
+		log.info("dogDeleteForm Controller");
+		
+		DogDTO dogDTO = dogService.getDogInfo(dogNum);
+		
+		model.addAttribute("dog", dogDTO);
+		
+		return "/memberA/dogDeleteForm";
+	}
+	
+	/**
+	 * 강아지 정보 삭제 패쓰워드 입력 액션
+	 * 
+	 * @param dogNum 강아지 고유번호
+	 * @param pw 로그인된 이메일에 대한 패쓰워드
+	 * @param session
+	 * @param model
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/delete_check_pass")
+	public String deleteCheckPass(@RequestParam("dogNum") int dogNum,
+								  @RequestParam("pw") String pw,
+								  HttpSession session, 
+								  Model model) {
+		
+		log.info("반려견 정보 삭제 패쓰워드 입력폼 처리");
+		
+		JSONObject resultData = new JSONObject();
+		
+		boolean flag = session.getAttribute("SESS_LOGIN_INFO") != null ? true : false;
+		
+		if(flag == true) {
+			MemberDTO member = (MemberDTO)session.getAttribute("SESS_LOGIN_INFO");
+			
+			try {
+				
+				if (member.getPw().equals(pw)) { // 패쓰워드 일치
+					log.info("11111");
+					dogService.deleteDogInfo(dogNum);
+					
+					resultData.put("result","success");
+					
+				} else { // 패쓰워드 불일치
+					log.info("22222");
+					resultData.put("result","falsePw");
+				} //
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else {
+			log.info("33333");
+			resultData.put("result","fail");
+		}
+		
+		return resultData.toJSONString();
+	}
+	
+	
+	/**
+	 * 강아지 정보 수정 페이지 이동
+	 * 
+	 * @param dogNum 강아지 고유번호
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "dogUpdateInfo", method = RequestMethod.GET)
+	public String dogUpdateInfo(@RequestParam("dogNum") int dogNum, 
+								Model model) {
+		log.info("dogUpdateInfo Controller");
+		
+		DogDTO dogDTO = dogService.getDogInfo(dogNum);
+		
+		model.addAttribute("dog", dogDTO);
+		
+		return "/memberA/dogUpdateInfo";
+	}
+	
+	/**
+	 * 강아지 정보 수정 액션
+	 * 
+	 * @param dogNum 강아지 고유번호
+	 * @param name 수정될 이름
+ 	 * @param photo 수정될 사진
+	 * @param weight 수정될 몸무게
+	 * @param speices 수정될 견종
+	 * @param session
+	 * @param request
+	 * @param model
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/update_dogInfo")
+	public String updateDogInfo(@RequestParam("dogNum") int dogNum, 
+								@RequestParam("name") String name,
+								@RequestParam("photo") String photo,
+								@RequestParam("weight") String weight, 
+								@RequestParam("speices") String speices, 
+								HttpSession session, 
+							    HttpServletRequest request,
+							    Model model) {
+		
+		log.info("updateDogInfo Controller");
+		
+		JSONObject resultData = new JSONObject();
+		
+		DogDTO dogDTO = new DogDTO();
+		dogDTO.setDogNum(dogNum);
+		dogDTO.setName(name);
+		dogDTO.setPhoto(photo);
+		dogDTO.setWeight(weight);
+		dogDTO.setSpeices(speices);
+		
+		boolean flag = dogService.updateDogInfo(dogDTO);
+		
+		if(flag == true){
+			resultData.put("result","success");
+		}else {
+			resultData.put("result","fail");
+		}
+		
+		return resultData.toJSONString();
+	}
+	
+	
 }

@@ -63,7 +63,7 @@ public class DogDAO {
 		
 		log.info("DogDAO.getDogInfo");
 		
-		return sqlSession.selectOne(MAPPER_NS + ".getDogINfo", dogNum);
+		return sqlSession.selectOne(MAPPER_NS + ".getDogInfo", dogNum);
 	}
 	
 	/**
@@ -83,11 +83,11 @@ public class DogDAO {
 	 * 
 	 * @param DogNum 강아지 고유번호
 	 */
-	public void deleteDogInfo(int DogNum) {
+	public void deleteDogInfo(int dogNum) {
 		
 		log.info("DogDAO.deleteDogInfo");
 		
-		sqlSession.delete(MAPPER_NS + ".deleteDogInfo", DogNum);
+		sqlSession.delete(MAPPER_NS + ".deleteDogInfo", dogNum);
 	}
 	
 	/**

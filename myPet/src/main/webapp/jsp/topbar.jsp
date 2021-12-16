@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 
  <!-- Topbar -->
@@ -180,10 +180,24 @@
                                     Activity Log
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" onclick="logout_action();" data-toggle="modal" data-target="#logoutModal">
-                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Logout
-                                </a>
+                                <c:choose>
+                                	<c:when test="${empty SESS_LOGIN_INFO}">
+                                		<a class="dropdown-item" href="${pageContext.request.contextPath}/registor" >
+		                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+		                                    Sign up
+	                                	</a>
+	                                	<a class="dropdown-item" href="${pageContext.request.contextPath}/login" >
+		                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+		                                    Login
+	                                	</a>
+                                	</c:when>
+                                	<c:otherwise>
+		                                <a class="dropdown-item" onclick="logout_action();" data-toggle="modal" data-target="#logoutModal">
+		                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+		                                    Logout
+		                                </a>
+	                                </c:otherwise>
+                                </c:choose>
                             </div>
                         </li>
 

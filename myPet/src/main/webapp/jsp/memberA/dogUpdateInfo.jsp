@@ -37,7 +37,7 @@
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">반려견 정보</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">반려견 프로필 수정</h6>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -48,21 +48,31 @@
                                     <tbody>
 										<tr>
 											<td>이름</td>
-											<td id="name">${dog.name}</td>
+											<td>
+												<input type="text"  id="name" value="${dog.name}" />
+											</td>
+										</tr>
+										<tr>
+											<td>사진</td>
+											<td>
+												<input type="text"  id="photo" value="${dog.photo}" />
+											</td>
 										</tr>
 										<tr>
 											<td>몸무게</td>
-											<td id="weight">${dog.weight}</td>
+											<td>
+												<input type="text" id="weight" value="${dog.weight}" />
+											</td>
 										</tr>
 										<tr>
 											<td>견종</td>
-											<td id="speices">${dog.speices}</td>
+											<td>
+												<input type="text" id="speices" value="${dog.speices}" />
+											</td>
 										</tr>
                                     </tbody>
                                 </table>
-								<!-- <button class="btn btn-primary btn-user btn-block" onclick="update_memInfo();" >회원정보수정</button> -->
-								<button class="btn btn-primary btn-user btn-block" onclick="location.href='${pageContext.request.contextPath}/memberA/dogUpdateInfo?dogNum=${dog.dogNum}'">강아지정보수정</button>
-								<button class="btn btn-primary btn-user btn-block" onclick="location.href='${pageContext.request.contextPath}/memberA/dogDeleteForm?dogNum=${dog.dogNum}'" >강아지 정보 삭제</button>
+								<button class="btn btn-primary btn-user btn-block" onclick="update_dogInfo();">강아지정보수정</button>
                             </div>
                         </div>
                     </div>
@@ -80,5 +90,40 @@
     <!-- End of Page Wrapper -->
 
 </body>
+<script>
+function update_dogInfo(){
+	
+		$.ajax({
+			type: "POST", 
+			url:"/myPet/memberA/update_dogInfo",
+			dataType:"json", //서버가 요청 URL을 통해서 응답하는 내용의 타입
+			data:{
+				dogNum:$('#dogNum').val(),
+				name:$('#name').val(),
+				photo:$('#photo').val(),
+				weight:$('#weight').val(),
+				speices:$('#speices').val(),
+				
+			},
+			success : function(result){
+				
+				console.log("result :",result);
+				
+				if(result.result == "success"){
+					alert("수정되었습니다.");
+					location.href="/myPet/memberA/myDogList";
+				}else{
+					alert("수정에 실패하셨습니다.");
+				}
+				
+				
+			},
+			error : function(a, b, c){
+			}
+		});
+		
+}
+
+</script>
 
 </html>

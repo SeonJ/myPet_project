@@ -94,7 +94,7 @@ public class DogService {
 	 * @return 강아지 정보
 	 */
 	@Transactional(readOnly=true)
-	public DogDTO getDogINfo(int dogNum) {
+	public DogDTO getDogInfo(int dogNum) {
 		
 		DogDTO dog = null;
 		
@@ -144,14 +144,14 @@ public class DogService {
 	 * @return 반려견 프로필 삭제 성공 여부
 	 */
 	@Transactional(propagation=Propagation.REQUIRED)
-	public boolean deleteDogInfo(int DogNum) {
+	public boolean deleteDogInfo(int dogNum) {
 		
 		boolean flag = false;
 		TransactionStatus txStatus
 				= transactionManager.getTransaction(new DefaultTransactionDefinition());
 		
 		try {
-			dogDAO.deleteDogInfo(DogNum);
+			dogDAO.deleteDogInfo(dogNum);
 			transactionManager.commit(txStatus);
 			flag = true;
 		} catch (Exception e) {
